@@ -32,6 +32,23 @@ async function getTicketsType() {
 
 
 async function postTicket(userId: number, ticketTypeId: number) {
+    const register = await enrollmentRepository.findWithAddressByUserId(userId);
+    if (!register) throw notFoundError;
+    //console.log(register);
+
+    const infoNewTicket = {
+        status: TicketStatus.RESERVED,
+        ticketTypeId,
+        enrollmentId: register.id,
+    }
+
+    //console.log(infoNewTicket);
+
+    await ticketRepository.createTicket(infoNewTicket);
+    const ticket = await ticketRepository.findWithTicketTypeId(ticketTypeId);
+
+
+    return ticket
 }
 
 
