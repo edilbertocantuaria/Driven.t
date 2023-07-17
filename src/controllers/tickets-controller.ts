@@ -17,8 +17,6 @@ export async function getTickets(req: AuthenticatedRequest, res: Response) {
 }
 
 export async function getTicketsType(req: AuthenticatedRequest, res: Response) {
-
-
     try {
         const tickets = await ticketsService.getTicketsType();
         return res.status(httpStatus.OK).send(tickets);
@@ -33,7 +31,7 @@ export async function postTicket(req: AuthenticatedRequest, res: Response) {
     const { ticketTypeId } = req.body;
 
     if (!ticketTypeId) return res.sendStatus(httpStatus.BAD_REQUEST);
-    if (!userId) return res.sendStatus(httpStatus.NOT_FOUND);
+    //if (!userId) return res.sendStatus(httpStatus.NOT_FOUND);
 
     try {
         const newTicket = await ticketsService.postTicket(userId, ticketTypeId);
